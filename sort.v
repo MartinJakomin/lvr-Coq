@@ -4,6 +4,8 @@ Require Import ZArith.
 Require Import Recdef.
 Require Import sort_lectures.
 
+(* Local Open Scope Z_scope. *)
+
 
 (* Inserts an element in to a sorted list *)
 Function insert (x : Z) (lst : list Z) :=
