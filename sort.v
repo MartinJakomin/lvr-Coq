@@ -25,30 +25,9 @@ Eval compute in (insertionSort (12 :: 2 :: 7 :: 46 :: 5 :: 6 :: 7 :: 28 :: 19 ::
 
 
 
-(* The first element in a sorted list is the smallest *)
-Lemma first_element_is_the_smallest (a : Z) (tl : list Z):
-   forall x , In x tl -> urejen (a :: tl) -> (a <= x)%Z.
-Proof.
-   intros.
-   admit.
-Qed.
 
-
-(* Adding bigger element doesnt change upper Lemma *)
-Lemma smaller_than_x (a x : Z) (tl : list Z):
-   urejen (a :: tl) /\ (a <= x)%Z -> forall y, In y (insert x tl) -> (a <= y)%Z.
-Proof.
-   intros.
-   destruct H.
-   admit.
-Qed.
-
-
-(* TODO: Other lemmas you need for insert_is_sorted *)
-
-
-(* Insertion of an element keeps list sorted *)
-Lemma insert_is_sorted (x : Z) (lst : list Z):
+(* Insertion of an element keeps the list sorted *)
+Lemma insert_keeps_list_sorted (x : Z) (lst : list Z):
    urejen lst -> urejen (insert x lst).
 Proof.
    intros.
@@ -62,8 +41,35 @@ Proof.
        apply Z.leb_le.
        auto.
      + intro.
-       admit.       
+       apply Z.leb_gt in H0.
+       simpl.       
+       destruct lst; simpl.       
+       * firstorder.
+       * firstorder.
+         case_eq (x <=? z)%Z.
+         proof.
+         intro.
+         firstorder.         
+         apply Zle_bool_imp_le.
+         auto.
+         end proof.
+         proof.
+         intro.
+         firstorder.
+         replace (z :: insert x lst) with (insert x (z :: lst)).
+         assumption.
+         simpl.
+         case_eq (x <=? z)%Z.
+         proof.
+         intro.
+         absurd ((x <=? z)%Z = false); auto.
+         (* TODO *)
+         admit.
+         end proof.
+         auto.
+         end proof.  
 Qed.
+
 
 
 (* InsertionSort always returns sorted list *)
@@ -74,6 +80,5 @@ Proof.
 Qed.
 
 (* TODO: Other theorems that program works correctly *)
-
 
 
