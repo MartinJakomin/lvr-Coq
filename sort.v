@@ -38,8 +38,7 @@ Proof.
      + intro.
        simpl.
        firstorder.
-       apply Z.leb_le.
-       auto.
+       now apply Z.leb_le.       
      + intro.
        apply Z.leb_gt in H0.
        simpl.       
@@ -50,8 +49,7 @@ Proof.
          proof.
          intro.
          firstorder.         
-         apply Zle_bool_imp_le.
-         auto.
+         now apply Zle_bool_imp_le.
          end proof.
          proof.
          intro.
@@ -62,9 +60,8 @@ Proof.
          case_eq (x <=? z)%Z.
          proof.
          intro.
-         absurd ((x <=? z)%Z = false); auto.
-         (* TODO *)
-         admit.
+         absurd ((x <=? z)%Z = false); auto.         
+         now rewrite <- not_false_iff_true in H4.         
          end proof.
          auto.
          end proof.  
