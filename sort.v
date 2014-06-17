@@ -68,7 +68,6 @@ Proof.
 Qed.
 
 
-
 (* InsertionSort always returns sorted list *)
 Lemma returns_sorted_list :
    forall l : list Z, urejen (insertionSort l).
@@ -86,7 +85,14 @@ Lemma returns_permuted_list :
 Proof.
    intro.
    induction l.
-   + 
+   - firstorder.
+   - intro.
+     simpl.
+     case_eq (x =? a)%Z.
+     + intro.
+     (* TODO *)
+       admit.
+     + intro.
+     (* TODO *)
+       admit.
 Qed.
-
-(* Theorem insertion_sort_works *)
