@@ -70,12 +70,23 @@ Qed.
 
 
 (* InsertionSort always returns sorted list *)
-Theorem sorted (l : list Z):
-   forall l, urejen (insertionSort l).
+Lemma returns_sorted_list :
+   forall l : list Z, urejen (insertionSort l).
 Proof.
-   admit.
+   intro.
+   induction l.
+   + simpl; auto.
+   + simpl.
+     apply insert_keeps_list_sorted; assumption. 
 Qed.
 
-(* TODO: Other theorems that program works correctly *)
+(* InsertionSort always returns same list (permutation of a list) *)
+Lemma returns_permuted_list :
+   forall l : list Z, permutiran l (insertionSort l).
+Proof.
+   intro.
+   induction l.
+   + 
+Qed.
 
-
+(* Theorem insertion_sort_works *)
