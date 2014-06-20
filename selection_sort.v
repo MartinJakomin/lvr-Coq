@@ -4,10 +4,6 @@ Require Import ZArith.
 Require Import Recdef.
 Require Import sort_lectures.
 
-(* Local Open Scope Z_scope. *) 
-
-
-
 
 Function minimum (lst : list Z) := 
    match lst with      
@@ -35,18 +31,16 @@ Eval compute in (selectionSort (12 :: 2 :: 7 :: 46 :: 5 :: 6 :: 7 :: 28 :: 19 ::
 
 
 
-
-
-(* selectionSortMergeSort always returns sorted list *)
+(* SelectionSort always returns sorted list *)
 Lemma returns_sorted_list :
-   forall l : list Z, urejen (selectionSortmergeSort l).
+   forall l : list Z, urejen (selectionSort l).
 Proof.
    admit.
 Qed.
 
-(* selectionSortMergeSort always returns same list (permutation of a list) *)
+(* SelectionSort always returns same list (permutation of a list) *)
 Lemma returns_permuted_list :
-   forall l : list Z, permutiran l (selectionSortmergeSort l).
+   forall l : list Z, permutiran l (selectionSort l).
 Proof.
    admit.
 Qed.

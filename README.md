@@ -3,13 +3,18 @@ LVR Coq
 
 **Authors:** _Martin Jakomin_ & _Mateja Rojko_
 
-Sorting algorithm (insertion sort) proved by Coq
+Sorting algorithms proved by Coq
 
 ___
 
 
-# Algorithm
+## Algorithms
 
-Insertion Sort.
+* Insertion Sort.
+* Selection Sort (TODO - optional).
 
-# Project Structure
+## Project structure
+ * `Coq/` contains the source code:
+   * `Coq/insertion_sort.v` contains the proof of insertion sort
+   manipulation and simplification
+   * `Coq/selection_sort.v` contains the proof of selection sort
