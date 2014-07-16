@@ -11,10 +11,13 @@ ___
 ## Algorithms
 
 * Insertion Sort.
-* Selection Sort (TODO - optional).
+* Selection Sort (Work in progress).
 
 ## Project structure
  * `Coq/` contains the source code:
-   * `Coq/insertion_sort.v` contains the proof of insertion sort
+   * `Coq/insertion_sort.v` contains the insertion sort and its proof.
    manipulation and simplification
-   * `Coq/selection_sort.v` contains the proof of selection sort
+   * `Coq/selection_sort.v` contains the selection sort and its proof.
+   * `Coq/sort_lectures.v` contains some useful lemmas used in our proofs (property of [Andrej Bauer](https://github.com/andrejbauer))
+
+

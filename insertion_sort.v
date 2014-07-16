@@ -79,6 +79,24 @@ Proof.
      apply insert_keeps_list_sorted; assumption. 
 Qed.
 
+
+(* Number of occurrences of x increases if we insert another x into a list*)
+Lemma occurrence_of_x (x : Z) (l : list Z) :
+    pojavi x (insert x l) = S (pojavi x l).
+Proof.
+   (* TODO *)
+   admit.
+Qed.
+
+(* Number of occurrences of x does not change if we insert a different element into a list *)
+Lemma occurrence_of_x_2 (x y : Z) (l : list Z) :
+    ((x =? y)%Z = false) -> pojavi x (insert y l) = pojavi x l.
+Proof.
+   (* TODO *)
+   admit.
+Qed.
+
+
 (* InsertionSort always returns same list (permutation of a list) *)
 Lemma returns_permuted_list :
    forall l : list Z, permutiran l (insertionSort l).
@@ -90,9 +108,16 @@ Proof.
      simpl.
      case_eq (x =? a)%Z.
      + intro.
-     (* TODO *)
-       admit.
+       replace a with x.
+       * rewrite (occurrence_of_x x (insertionSort l)).
+         rewrite IHl.
+         auto.       
+       * (* SearchAbout [(_ =? _)%Z]. *)
+         now apply Z.eqb_eq.
      + intro.
-     (* TODO *)
-       admit.
+       rewrite (occurrence_of_x_2 x a).
+       * rewrite IHl.
+         auto.
+       * assumption.  
 Qed.
+
