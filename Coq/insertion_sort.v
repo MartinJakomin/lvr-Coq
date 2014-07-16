@@ -85,14 +85,22 @@ Lemma occurrence_of_x (x : Z) (l : list Z) :
     pojavi x (insert x l) = S (pojavi x l).
 Proof.
    (* TODO *)
-   admit.
+   induction l.
+   - simpl.
+     now rewrite Z.eqb_refl.
+   - admit.
+     (* TODO *)
 Qed.
 
 (* Number of occurrences of x does not change if we insert a different element into a list *)
 Lemma occurrence_of_x_2 (x y : Z) (l : list Z) :
     ((x =? y)%Z = false) -> pojavi x (insert y l) = pojavi x l.
 Proof.
-   (* TODO *)
+   intro.
+   induction l.
+   - simpl.
+     now replace (x =? y)%Z with false.
+   - (* TODO *)
    admit.
 Qed.
 
