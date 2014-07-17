@@ -1,10 +1,8 @@
 Require Import List.
-Require Import Bool.
 Require Import ZArith.
-Require Import Recdef.
+Require Import Bool.
 Require Import sort_lectures.
 
-(* Local Open Scope Z_scope. *)
 
 
 (* Inserts an element in to a sorted list *)
@@ -20,9 +18,6 @@ Function insertionSort (lst : list Z) :=
       | nil => nil
       | hd :: tl => insert hd (insertionSort tl)     
    end.
-
-Eval compute in (insertionSort (12 :: 2 :: 7 :: 46 :: 5 :: 6 :: 7 :: 28 :: 19 :: nil)%Z).
-
 
 
 
