@@ -45,26 +45,20 @@ Proof.
        destruct lst; simpl.       
        * firstorder.
        * firstorder.
-         case_eq (x <=? z)%Z.
-         proof.
+         case_eq (x <=? z)%Z.         
          intro.
          firstorder.         
-         now apply Zle_bool_imp_le.
-         end proof.
-         proof.
+         now apply Zle_bool_imp_le. 
          intro.
          firstorder.
          replace (z :: insert x lst) with (insert x (z :: lst)).
          assumption.
          simpl.
-         case_eq (x <=? z)%Z.
-         proof.
+         case_eq (x <=? z)%Z.         
          intro.
          absurd ((x <=? z)%Z = false); auto.         
-         now rewrite <- not_false_iff_true in H4.         
-         end proof.
+         now rewrite <- not_false_iff_true in H4. 
          auto.
-         end proof.  
 Qed.
 
 
@@ -74,23 +68,52 @@ Lemma returns_sorted_list :
 Proof.
    intro.
    induction l.
-   + simpl; auto.
-   + simpl.
-     apply insert_keeps_list_sorted; assumption. 
+   - now simpl.
+   - simpl.
+     now apply insert_keeps_list_sorted. 
 Qed.
 
 
-(* Number of occurrences of x increases if we insert another x into a list*)
+
+(* Number of occurrences of x increases if we insert another x into a list *)
 Lemma occurrence_of_x (x : Z) (l : list Z) :
     pojavi x (insert x l) = S (pojavi x l).
-Proof.
-   (* TODO *)
+Proof.   
    induction l.
    - simpl.
      now rewrite Z.eqb_refl.
-   - admit.
-     (* TODO *)
+   - simpl.
+     case_eq (x <=? a)%Z.
+     + intro.
+       case_eq (x =? a)%Z.
+       * intro.
+         replace a with x.
+         simpl.
+         replace (x =? x)%Z with true.
+         auto.
+         now rewrite Z.eqb_refl.
+         auto.
+         now apply Z.eqb_eq.
+       * intro.
+         simpl.
+         replace (x =? a)%Z with false.
+         replace (x =? x)%Z with true.
+         auto.
+         now rewrite Z.eqb_refl.
+     + intro.
+       case_eq (x =? a)%Z.
+       * intro.
+         replace a with x.
+         simpl.
+         replace (x =? x)%Z with true.
+         auto.
+         now rewrite Z.eqb_refl.
+         now apply Z.eqb_eq.
+       * intro.
+         simpl.
+         now replace (x =? a)%Z with false.
 Qed.
+
 
 (* Number of occurrences of x does not change if we insert a different element into a list *)
 Lemma occurrence_of_x_2 (x y : Z) (l : list Z) :
@@ -100,8 +123,31 @@ Proof.
    induction l.
    - simpl.
      now replace (x =? y)%Z with false.
-   - (* TODO *)
-   admit.
+   - simpl.
+     case_eq (y <=? a)%Z.
+     + intro.
+       case_eq (x =? a)%Z.
+       * intro.
+         replace a with x.
+         simpl.
+         replace (x =? y)%Z with false.
+         replace (x =? x)%Z with true.
+         auto.
+         now rewrite Z.eqb_refl.
+         now apply Z.eqb_eq.
+       * intro.
+         simpl.
+         replace (x =? y)%Z with false.
+         now replace (x =? a)%Z with false.
+     + intro.
+       case_eq (x =? a)%Z.
+       * intro.
+         simpl.
+         replace (x =? a)%Z with true.
+         auto.
+       * intro.
+         simpl.
+         now replace (x =? a)%Z with false.
 Qed.
 
 
@@ -118,14 +164,21 @@ Proof.
      + intro.
        replace a with x.
        * rewrite (occurrence_of_x x (insertionSort l)).
-         rewrite IHl.
-         auto.       
-       * (* SearchAbout [(_ =? _)%Z]. *)
-         now apply Z.eqb_eq.
+         now rewrite IHl.         
+       * now apply Z.eqb_eq.
      + intro.
        rewrite (occurrence_of_x_2 x a).
-       * rewrite IHl.
-         auto.
+       * now rewrite IHl.         
        * assumption.  
 Qed.
 
+
+
+(* Theorem that states that our insertionSort works properly *)
+Theorem insertionSort_works :
+   forall l : list Z, permutiran l (insertionSort l) /\ urejen (insertionSort l).
+Proof.   
+   split.
+   apply returns_permuted_list.
+   apply returns_sorted_list.
+Qed.
